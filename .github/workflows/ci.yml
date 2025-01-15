@@ -12,5 +12,5 @@ jobs:
         run: |
           curl -f https://api.cycle.io/v1/pipelines/67619cbd0cefa3229efcbe00/trigger \
             -H "Content-Type: application/json" \
-            -d "{\"secret\": \"${{ secrets.CYCLE_TRIGGER_KEY }}\", \"variables\": {\"version\": \"${{ github.sha | slice(0, 7) }}\"}}" \
+            -d "{\"secret\": \"${{ secrets.CYCLE_TRIGGER_KEY }}\", \"variables\": {\"version\": \"${{ github.sha }}\"}}" \
             -X POST
