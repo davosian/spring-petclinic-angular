@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+#cycle.io networking quirk: wait a bit before initial connection
+#sleep 3
+
 # Construct the BACKEND_URL
 # Use the variables passed from the ConfigMap or as env variables
 BACKEND_URL="${BACKEND_URL:-http://no-backend-url-set:80}"

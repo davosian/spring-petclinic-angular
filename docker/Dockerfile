@@ -12,10 +12,10 @@ RUN if [ -n "$ENVIRONMENT" ] && [ "$ENVIRONMENT" != "local" ]; then \
     fi
 
 # Stage 2: Serve the application with nginx
-FROM nginx:stable
+FROM nginx:stable-alpine
 
-# Install gettext-base for envsubst
-RUN apt-get update && apt-get install -y gettext-base && rm -rf /var/lib/apt/lists/*
+# In alpine, gettext is installed differently
+RUN apk add --no-cache gettext
 
 # Copy the built app
 COPY --from=build /app/dist /usr/share/nginx/html
@@ -23,7 +23,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy the Nginx config template
 COPY docker/default.conf.template /etc/nginx/templates/default.conf.template
 
-# Replace environment variables and start Nginx
+# Copy the entrypoint script
 COPY docker/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
