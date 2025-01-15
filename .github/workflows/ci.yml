@@ -2,11 +2,6 @@ name: Build and deploy to Cycle.io
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Build version, e.g v1.0.0"
-        type: string
-        required: true
 
 jobs:
   build:
@@ -17,5 +12,5 @@ jobs:
         run: |
           curl -f https://api.cycle.io/v1/pipelines/67619cbd0cefa3229efcbe00/trigger \
             -H "Content-Type: application/json" \
-            -d "{\"secret\": \"${{ secrets.CYCLE_TRIGGER_KEY }}\", \"variables\": {\"version\": \"${{ github.event.inputs.version }}\"}}" \
+            -d "{\"secret\": \"${{ secrets.CYCLE_TRIGGER_KEY }}\", \"variables\": {\"version\": \"${{ github.sha::7 }}\"}}" \
             -X POST
